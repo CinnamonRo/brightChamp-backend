@@ -1,7 +1,6 @@
-// const router = require("express").Router();
+const router = require("express").Router();
+const StuControler = require("../controler/controler");
 
-// router.get("/", (req, res) => {
-//   res.send("ini student");
-// });
+router.get("/", StuControler);
 
-// module.export = router;
+module.exports = router;
