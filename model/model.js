@@ -16,11 +16,12 @@ class Student {
   static viewAll(callback) {
     fs.readFile("./data.json", "utf-8", (err, data) => {
       if (err) {
-        cb(err, null);
+        callback(err, null);
       } else {
         // string to arr
-        data = JSON.parse;
-        dataStudent = [];
+        data = JSON.parse(data);
+        const dataStudent = [];
+        // console.log(data, "ini data");
         for (let i = 0; i < data.length; i++) {
           dataStudent.push(
             new Model(
@@ -33,7 +34,47 @@ class Student {
             )
           );
         }
-        cb(null, data);
+        callback(null, dataStudent);
+      }
+    });
+  }
+  static saveData(data, cb) {
+    fs.writeFile("./data,json", JSON.stringify(data, null, 2), (err) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, "data berhasil dimasukkan");
+      }
+    });
+  }
+
+  static addStu(objStudent, cb) {
+    Student.viewAll((err, data) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        let id;
+        if (id === 0) {
+          id = 1;
+        } else {
+          id = data[data.length - 1].id + 1;
+        }
+        objStudent = new Student(
+          id,
+          objStudent.first_name,
+          objStudent.last_name,
+          objStudent.email,
+          objStudent.gender,
+          objStudent.birth_date
+        );
+        data.push(objStudent);
+        Student.saveData(data, (err, data) => {
+          if (err) {
+            cb(err, null);
+          } else {
+            cb(null, data);
+          }
+        });
       }
     });
   }
