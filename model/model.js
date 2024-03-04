@@ -39,7 +39,7 @@ class Student {
     });
   }
   static saveData(data, cb) {
-    fs.writeFile("./data,json", JSON.stringify(data, null, 2), (err) => {
+    fs.writeFile("./data.json", JSON.stringify(data, null, 2), (err) => {
       if (err) {
         cb(err, null);
       } else {
@@ -49,6 +49,7 @@ class Student {
   }
 
   static addStu(objStudent, cb) {
+    // console.log(objStudent, "ini di model");
     Student.viewAll((err, data) => {
       if (err) {
         cb(err, null);
@@ -58,21 +59,75 @@ class Student {
           id = 1;
         } else {
           id = data[data.length - 1].id + 1;
+          objStudent = new Model(
+            id,
+            objStudent.first_name,
+            objStudent.last_name,
+            objStudent.email,
+            objStudent.gender,
+            objStudent.birth_date
+          );
+          data.push(objStudent);
+          Student.saveData(data, (err, data) => {
+            if (err) {
+              cb(err, null);
+            } else {
+              cb(null, data);
+            }
+          });
         }
-        objStudent = new Student(
-          id,
-          objStudent.first_name,
-          objStudent.last_name,
-          objStudent.email,
-          objStudent.gender,
-          objStudent.birth_date
-        );
-        data.push(objStudent);
+      }
+    });
+  }
+  static delete(id, cb) {
+    Student.viewAll((err, data) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].id === +id) {
+            data.splice(i, 1);
+          }
+        }
         Student.saveData(data, (err, data) => {
           if (err) {
             cb(err, null);
           } else {
             cb(null, data);
+          }
+        });
+      }
+    });
+  }
+  static editForm(id, cb) {
+    Student.viewAll((err, data) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        const student = data.find((item) => item.id === id);
+        cb(null, student);
+      }
+    });
+  }
+  static saveEditedForm(studentEditSave, cb) {
+    Student.viewAll((err, data) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].id === +studentEditSave.id) {
+            data[i].first_name = studentEditSave.first_name;
+            data[i].last_name = studentEditSave.last_name;
+            data[i].email = studentEditSave.email;
+            data[i].gender = studentEditSave.gender;
+            data[i].birth_date = studentEditSave.birth_date;
+          }
+        }
+        Student.saveData(data, (err, data2) => {
+          if (err) {
+            cb(err, null);
+          } else {
+            cb(null, "Berhasil dimasukkan");
           }
         });
       }

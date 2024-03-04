@@ -1,26 +1,18 @@
 [
   {
-    "id": 1,
-    "first_name": "Joko",
-    "last_name": "Santoso",
-    "email": "jokosantoso@mail.com",
-    "gender": "male",
-    "birth_date": "28-06-2005"
-  },
-  {
-    "id": 2,
-    "first_name": "Lukman",
-    "last_name": "Riki",
-    "email": "lukmanriki@mail.com",
-    "gender": "male",
-    "birth_date": "13-04-2004"
-  },
-  {
     "id": 3,
     "first_name": "iwan",
     "last_name": "setiawan",
     "email": "imiwaniwset@gmail.com",
     "gender": "Male",
     "birth_date": "2023-12-07"
+  },
+  {
+    "id": 4,
+    "first_name": "fredlie",
+    "last_name": "guks",
+    "email": "huangfredlie04@gmail.com",
+    "gender": "Male",
+    "birth_date": "2024-01-03"
   }
 ]
