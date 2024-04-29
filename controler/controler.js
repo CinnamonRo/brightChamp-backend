@@ -1,5 +1,6 @@
 const Model = require("../model/model");
 const { param } = require("../routes");
+
 class StuControl {
   static showStu(req, res) {
     Model.viewAll((err, data) => {
@@ -52,7 +53,7 @@ class StuControl {
   //Number(string)
 
   static stuEdit(req, res) {
-    let id = +req.params.id;
+    let id = typeof req.params.id;
     console.log(id, "dari edit");
     Model.editForm(id, (err, student) => {
       if (err) {
@@ -65,8 +66,10 @@ class StuControl {
 
   // params ambil dari alamat , body  = fornm, file = file
   static stuEditSave(req, res) {
+    let id = +req.params.id;
+    console.log(id, "ini id stuedit");
     const studentEditSave = {
-      // id: +req.params.id,
+      id: id,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
@@ -74,6 +77,14 @@ class StuControl {
       birth_date: req.body.birth_date,
     };
     console.log(studentEditSave, "dari controller");
+
+    Model.saveEditedForm(studentEditSave, (err, data) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect("/student");
+      }
+    });
   }
 }
 module.exports = StuControl;

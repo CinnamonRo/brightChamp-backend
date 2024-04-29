@@ -124,7 +124,7 @@ class Student {
             data[i].birth_date = studentEditSave.birth_date;
           }
         }
-        Student.saveData(data, (err, data2) => {
+        Student.saveData(data, (err, data) => {
           if (err) {
             cb(err, null);
           } else {
