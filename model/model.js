@@ -110,6 +110,7 @@ class Student {
     });
   }
   static saveEditedForm(studentEditSave, cb) {
+    console.log(studentEditSave, "dari model");
     Student.viewAll((err, data) => {
       if (err) {
         cb(err, null);
@@ -134,4 +135,5 @@ class Student {
     });
   }
 }
+
 module.exports = Student;

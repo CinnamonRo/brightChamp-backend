@@ -53,7 +53,7 @@ class StuControl {
 
   static stuEdit(req, res) {
     let id = +req.params.id;
-    console.log(id);
+    console.log(id, "dari edit");
     Model.editForm(id, (err, student) => {
       if (err) {
         res.send(err);
@@ -66,14 +66,14 @@ class StuControl {
   // params ambil dari alamat , body  = fornm, file = file
   static stuEditSave(req, res) {
     const studentEditSave = {
-      id: parseInt(req.params.id),
+      // id: +req.params.id,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
       gender: req.body.gender,
       birth_date: req.body.birth_date,
     };
-    console.log(studentEditSave);
+    console.log(studentEditSave, "dari controller");
   }
 }
 module.exports = StuControl;
